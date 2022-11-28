@@ -99,7 +99,7 @@ const main = async () => {
     const email = await question('what is your email? ')
     const tlp = await question('what is your number phone? ')
 
-    //membuat logika apabila email dan tlp benar
+    //membuat logika apabila email, tlp, nama benar
     if (validator.isEmail(email) == true && validator.isMobilePhone(tlp, 'id-ID') == true && validator.isAlpha(name,'en-US',{ignore: ' '})) {
 
         //membuat variable untuk menampung nilai
@@ -118,6 +118,7 @@ const main = async () => {
         fs.writeFileSync('data/contacts.json', JSON.stringify(contacts));
     }
 
+    //membuat logika apabila nama salah
     if(!validator.isAlpha(name,'en-US',{ignore: ' '})== true){
         console.log('Your name is wrong format');
     }else{
