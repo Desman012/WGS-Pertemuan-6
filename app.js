@@ -119,9 +119,9 @@ const main = async () => {
     }
 
     if(!validator.isAlpha(name,'en-US',{ignore: ' '})== true){
-        console.log('your name is wrong format');
+        console.log('Your name is wrong format');
     }else{
-        console.log(`your name is ${name}`);
+        console.log(`Your name : ${name}`);
     }
 
     //membuat logika apabila email salah
