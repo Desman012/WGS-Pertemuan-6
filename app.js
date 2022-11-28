@@ -99,11 +99,8 @@ const main = async () => {
     const email = await question('what is your email? ')
     const tlp = await question('what is your number phone? ')
 
-    //menampilkan nilai nama di terminal
-    console.log(`your name : ${name}`);
-
     //membuat logika apabila email dan tlp benar
-    if (validator.isEmail(email) == true && validator.isMobilePhone(tlp, 'id-ID') == true) {
+    if (validator.isEmail(email) == true && validator.isMobilePhone(tlp, 'id-ID') == true && validator.isAlpha(name,'en-US',{ignore: ' '})) {
 
         //membuat variable untuk menampung nilai
         const contact = { name, email, tlp };
@@ -119,10 +116,12 @@ const main = async () => {
 
         //menuliskan data kedalam file contacts.json
         fs.writeFileSync('data/contacts.json', JSON.stringify(contacts));
+    }
 
-        //menampilkan hasil masukan data ke terminal
-        console.log(`Your Email : ${email}`);
-        console.log(`Your Phone : ${tlp}`);
+    if(!validator.isAlpha(name,'en-US',{ignore: ' '})== true){
+        console.log('your name is wrong format');
+    }else{
+        console.log(`your name is ${name}`);
     }
 
     //membuat logika apabila email salah
