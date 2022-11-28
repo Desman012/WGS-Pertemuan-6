@@ -55,14 +55,14 @@ const main = async () => {
 
     const email = await question('what is your email? ')
     if (!validator.isEmail(email) == true) {
-        console.log('Your is wrong format');
+        console.log('Your email is wrong format');
         rl.close()
         return(false)
     }
 
     const tlp = await question('what is your number phone? ')
     if (!validator.isMobilePhone(tlp, 'id-ID') == true) {
-        console.log('Your is number phone wrong format');
+        console.log('Your number phone is wrong format');
         rl.close()
         return(false)
     }
