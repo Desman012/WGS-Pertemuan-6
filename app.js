@@ -31,56 +31,6 @@ if (!fs.existsSync(dataPath)) {
     fs.writeFileSync(dataPath, '[]', 'utf-8')
 }
 
-//pertanyaan
-// rl.question('What is your name? ', (name) => {
-//     rl.question('What is your email? ', (email) => {
-//         rl.question('What is your number phone? ', (tlp) => {
-
-//             //menampilkan hasil inputan nama
-//             console.log(`Your name : ${name}`);
-
-//             //membuat logika email dan tlp benar
-//             if(validator.isEmail(email) == true && validator.isMobilePhone(tlp,'id-ID') == true){
-
-//                 //membuat variable untuk menampung nilai
-//                 const contact = {name,email,tlp};
-
-//                 //membaca file JSON
-//                 const file = fs.readFileSync('data/contacts.json','utf8');
-
-//                 //mengubah file txt menjadi format JSON
-//                 const contacts = JSON.parse(file);
-
-//                 //memasukan data kedalam format json
-//                 contacts.push(contact);
-
-//                 //menuliskan data kedalam file contacts.json
-//                 fs.writeFileSync('data/contacts.json',JSON.stringify(contacts));
-
-//                 //menampilkan hasil masukan data ke terminal
-//                 console.log(`Your Email : ${email}`);
-//                 console.log(`Your Phone : ${tlp}`);
-//             }
-
-//             //membuat logika apabila email salah
-//             if(validator.isEmail(email) == false){
-//                 console.log(`Your email is wrong`);
-//             }
-
-//             //membuat logika apabila telpon salah
-//             if(validator.isMobilePhone(tlp,'id-ID') == false){
-//                 console.log(`Your Phone number is wrong`);
-//             }
-//             console.log('Thank you');
-
-//             //menghentikan program
-//             rl.close();
-//         })
-//     })
-// })
-
-
-
 
 //membuat fungsi question untuk pertanyaan
 const question = (questions) => {
@@ -96,57 +46,42 @@ const question = (questions) => {
 const main = async () => {
     //memanggil fungsi question, dan membuat pertanyaan
     const name = await question('what is your name? ')
-    const email = await question('what is your email? ')
-    const tlp = await question('what is your number phone? ')
+    //membuat logika apabila nama salah program akan tutup
+    if(!validator.isAlpha(name,'en-US',{ignore: ' '})== true){
+        console.log('Your name is wrong format');
+        rl.close()
+        return(false)
+    }
 
-    //membuat logika apabila email, tlp, nama benar
-    if (validator.isEmail(email) == true && validator.isMobilePhone(tlp, 'id-ID') == true && validator.isAlpha(name,'en-US',{ignore: ' '})) {
+    const email = await question('what is your email? ')
+    if (!validator.isEmail(email) == true) {
+        console.log('Your is wrong format');
+        rl.close()
+        return(false)
+    }
+
+    const tlp = await question('what is your number phone? ')
+    if (!validator.isMobilePhone(tlp, 'id-ID') == true) {
+        console.log('Your is number phone wrong format');
+        rl.close()
+        return(false)
+    }
 
         //membuat variable untuk menampung nilai
         const contact = { name, email, tlp };
-
         //membaca file JSON
         const file = fs.readFileSync('data/contacts.json', 'utf8');
-
         //mengubah file txt menjadi format JSON
         const contacts = JSON.parse(file);
-
         //memasukan data kedalam format json
         contacts.push(contact);
-
         //menuliskan data kedalam file contacts.json
         fs.writeFileSync('data/contacts.json', JSON.stringify(contacts));
-    }
 
-    //membuat logika apabila nama salah
-    if(!validator.isAlpha(name,'en-US',{ignore: ' '})== true){
-        console.log('Your name is wrong format');
-    }else{
-        console.log(`Your name : ${name}`);
-    }
-
-    //membuat logika apabila email salah
-    if (!validator.isEmail(email) == true) {
-        console.log('Your is wrong format');
-    }
-    else {
-        console.log(`Your Email : ${email}`);
-    }
-
-    //membuat logika apabila tlp salah
-    if (!validator.isMobilePhone(tlp, 'id-ID') == true) {
-        console.log('Your is number phone wrong format');
-    }
-    else {
-        console.log(`Your number phone : ${tlp}`);
-    }
-
-    //membuat logika apabila email dan tlp salah
-    if (validator.isEmail(email) != true && validator.isMobilePhone(tlp, 'id-ID') != true) {
-        console.log('Your Email is wrong format');
-        console.log('Your phone number is wrong format');
-    }
-    //memberhentikan program
+        //menampilkan data ke terminal
+        console.log(`Your name         : ${name}`);
+        console.log(`Your Email        : ${email}`);
+        console.log(`Your phone number : ${tlp}`);
     rl.close()
 }
 
